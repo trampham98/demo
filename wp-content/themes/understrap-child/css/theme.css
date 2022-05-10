@@ -1,4 +1,5 @@
 a {
+  color: yellowgreen;
   text-decoration: underline;
   -webkit-transition: all 0.3;
   transition: all 0.3;
