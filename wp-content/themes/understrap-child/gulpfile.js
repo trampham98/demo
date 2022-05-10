@@ -14,7 +14,7 @@ function style() {
 
 function watch() {
     browserSync.init({
-        proxy: "buffcodebase.local"
+        proxy: "demo.local"
     });
 
     gulp.watch('./scss/**/*.scss', style);
