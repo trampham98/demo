@@ -1,23 +1,24 @@
 <?php
-/**
- * Theme functions and definitions
- *
- * @package HelloElementorChild
- */
 
-/**
- * Load child theme css and optional scripts
- *
- * @return void
- */
-function hello_elementor_child_enqueue_scripts() {
-	wp_enqueue_style(
-		'hello-elementor-child-style',
-		get_stylesheet_directory_uri() . '/style.css',
-		[
-			'hello-elementor-theme-style',
-		],
-		'1.0.0'
-	);
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
-add_action( 'wp_enqueue_scripts', 'hello_elementor_child_enqueue_scripts', 20 );
+
+
+$demo_child_includes = array(
+	'/setup.php',                           // Theme setup and custom theme supports.
+	'/enqueue.php',                         // Enqueue scripts and styles.
+	'/shortcodes.php',                      // Custom shortcodes.
+	// '/widgets.php',                         // Custom shortcodes.
+	// '/post_type.php',                       // Custom post_type.
+	// '/woocommerce.php',                     // Custom woocommerce.
+	'/functions.php'                        // Custom functions.
+);
+
+foreach ( $demo_child_includes as $file ) {
+	$filepath = locate_template( 'inc' . $file );
+	if ( ! $filepath ) {
+		trigger_error( sprintf( 'Error locating /inc%s for inclusion', $file ), E_USER_ERROR );
+	}
+	require_once $filepath;
+}

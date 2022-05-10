@@ -1,0 +1,23 @@
+@mixin fs($size, $line-height) {
+    @include rem( 'font-size', $size );
+    @include rem( 'line-height', $line-height );
+}
+
+// @mixin h1 {
+//     @include fs( 54, 60 );
+
+//     @include media-breakpoint-down(sm){
+//         font-size: 24px;
+//         line-height: 32px;
+//     }
+// }
+
+// @mixin fs-14 {
+//     font-size: 14px;
+//     line-height: 24px;
+
+//     @include media-breakpoint-down(sm){
+//         font-size: 12px;
+//         line-height: 22px;
+//     }
+// }
