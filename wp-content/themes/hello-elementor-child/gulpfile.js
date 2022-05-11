@@ -23,7 +23,7 @@ function styleTheme() {
 }
 
 // concat file .min.js
-gulp.task( 'concat-vendors', function() {
+gulp.task( 'concat-vendorsjs', function() {
     var stream = gulp.src('./assets/js/vendors/*.js')
     .pipe(concat('vendors.js'))
     .pipe(gulp.dest('./assets/js'));

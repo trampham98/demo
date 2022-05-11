@@ -12,6 +12,7 @@ $demo_child_includes = array(
 	// '/widgets.php',                         // Custom shortcodes.
 	// '/post_type.php',                       // Custom post_type.
 	// '/woocommerce.php',                     // Custom woocommerce.
+	'/elementor-widgets.php',               // Custom functions.
 	'/functions.php'                        // Custom functions.
 );
 
