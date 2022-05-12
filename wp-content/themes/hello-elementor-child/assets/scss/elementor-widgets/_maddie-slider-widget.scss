@@ -1,0 +1,28 @@
+.maddie-slider-widget {
+    position: relative;
+    height: calc(100vh - 80px);
+
+    .maddie-slider-wrapper,
+    .slick-list,
+    .slick-track,
+    .maddie-slide {
+        height: 100%;
+    }
+    
+    .maddie-slide {
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: center;
+
+        background-size: cover;
+        background-position: center;
+
+        h2 {
+            text-align: center;
+            color: white;
+            @extend .mb_1x;
+        }
+    }
+}

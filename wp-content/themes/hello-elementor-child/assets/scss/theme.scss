@@ -1,5 +1,7 @@
 @import 'abstracts/variables';
 @import 'abstracts/mixins';
 
-@import 'global';
+@import 'abstracts/global';
 @import 'layouts/header';
+
+@import 'elementor-widgets/maddie-slider-widget.scss';

@@ -4,118 +4,86 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Elementor Demo Widget.
- *
- * Elementor widget that inserts an text content into the page, from any given URL.
- *
- * @since 1.0.0
+ * Elementor Maddie Slider Widget.
+ * Elementor widget that inserts an slider section into the page.
  */
 class Elementor_Maddie_Slider_Widget extends \Elementor\Widget_Base {
 
-	/**
-	 * Get widget name.
-	 *
-	 * Retrieve oEmbed widget name.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @return string Widget name.
-	 */
+	// Get widget name.
 	public function get_name() {
 		return 'maddie_slider';
 	}
 
-	/**
-	 * Get widget title.
-	 *
-	 * Retrieve oEmbed widget title.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @return string Widget title.
-	 */
+	// Get widget title.
 	public function get_title() {
 		return esc_html__( 'Maddie Slider', 'maddie' );
 	}
 
-	/**
-	 * Get widget icon.
-	 *
-	 * Retrieve oEmbed widget icon.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @return string Widget icon.
-	 */
+	// Get widget icon.
 	public function get_icon() {
-		return 'eicon-editor-paragraph';
+		return 'eicon-slider-device';
 	}
 
-	/**
-	 * Get custom help URL.
-	 *
-	 * Retrieve a URL where the user can get more information about the widget.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @return string Widget help URL.
-	 */
-	// public function get_custom_help_url() {
-	// 	return 'https://developers.elementor.com/docs/widgets/';
-	// }
-
-	/**
-	 * Get widget categories.
-	 *
-	 * Retrieve the list of categories the oEmbed widget belongs to.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @return array Widget categories.
-	 */
+	// Get widget categories.
 	public function get_categories() {
 		return [ 'maddie-category' ];
 	}
 
-	/**
-	 * Get widget keywords.
-	 *
-	 * Retrieve the list of keywords the oEmbed widget belongs to.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @return array Widget keywords.
-	 */
+	// Get widget keywords.
 	public function get_keywords() {
 		return [ 'slider', 'maddie' ];
 	}
 
-	/**
-	 * Register oEmbed widget controls.
-	 *
-	 * Add input fields to allow the user to customize the widget settings.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 */
+	// Register oEmbed widget controls.
 	protected function register_controls() {
 
 		$this->start_controls_section(
 			'content_section',
 			[
-				'label' => esc_html__( 'Content', 'maddie' ),
+				'label' => esc_html__( 'Content Slider', 'maddie' ),
 				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
 			]
 		);
 
-		$this->add_control(
-			'funny_text',
+		$repeater = new \Elementor\Repeater();
+
+		// ctrl slide item
+		$repeater->add_control(
+			'ctrl_slide_title', [
+				'label' => esc_html__( 'Title', 'maddie' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => esc_html__( 'Slide Title' , 'maddie' ),
+				'label_block' => true,
+			]
+		);
+
+		$repeater->add_control(
+			'ctrl_slide_image',
 			[
-				'label' => esc_html__( 'Funny Text', 'maddie' ),
-				'type' => \Elementor\Controls_Manager::WYSIWYG,
-				// 'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'url',
-				'placeholder' => esc_html__( 'please enter your text here...', 'maddie' ),
+				'label' => esc_html__( 'Choose Image', 'maddie' ),
+				'type' => \Elementor\Controls_Manager::MEDIA,
+				'default' => [
+					'url' => \Elementor\Utils::get_placeholder_image_src(),
+				],
+			]
+		);
+
+		// ctrl slides
+		$this->add_control(
+			'ctrl_slides',
+			[
+				'label' => esc_html__( 'Slider', 'maddie' ),
+				'type' => \Elementor\Controls_Manager::REPEATER,
+				'fields' => $repeater->get_controls(),
+				'default' => [
+					[
+						'ctrl_slide_title' => esc_html__( 'Title #1', 'maddie' ),
+					],
+					[
+						'ctrl_slide_title' => esc_html__( 'Title #2', 'maddie' ),
+					],
+				],
+				'title_field' => '{{{ ctrl_slide_title }}}',
 			]
 		);
 
@@ -123,38 +91,102 @@ class Elementor_Maddie_Slider_Widget extends \Elementor\Widget_Base {
 
 	}
 
-	/**
-	 * Render demo widget output on the frontend.
-	 *
-	 * Written in PHP and used to generate the final HTML.
-	 *
-	 * @since 1.0.0
-	 * @access protected
-	 */
+	// Render demo widget output on the frontend.
 	protected function render() {
-
 		$settings = $this->get_settings_for_display();
-		$this->add_inline_editing_attributes( 'funny_text', 'advanced' );
 
-		error_log(print_r( 'test', true ));
-		error_log(print_r( $this->get_settings( 'funny_text' ), true )); 	
-		// error_log(print_r( $settings )); 	
+		// if ( $settings['list'] ) {
+		// 	echo '<dl>';
+		// 	foreach (  $settings['list'] as $item ) {
+		// 		echo '<dt class="elementor-repeater-item-' . esc_attr( $item['_id'] ) . '">' . $item['list_title'] . '</dt>';
+		// 		echo '<dd>' . $item['list_content'] . '</dd>';
+		// 	}
+		// 	echo '</dl>';
+		// }
 
-		echo '<div class="demo-elementor-widget">';
 		?>
-			<div <?php echo $this->get_render_attribute_string( 'funny_text' ); ?>><?php echo $settings['funny_text']; ?></div>
-		<?php
-		// echo ( $settings['funny_text'] ) ? $settings['funny_text'] : '';
-		echo '</div>';
 
+		<?php if ( $settings['ctrl_slides'] ): ?>
+			<div class="maddie-slider-widget">
+				<div class="maddie-slider-wrapper">
+					<?php foreach (  $settings['ctrl_slides'] as $slide ): 
+						// error_log(print_r( 'test789', true ));
+						// error_log(print_r( $slide, true )); 
+
+						$slide_image = ($slide['ctrl_slide_image']['url'] !='') ? $slide['ctrl_slide_image']['url'] : \Elementor\Utils::get_placeholder_image_src(); ?>
+
+						<div class="maddie-slide maddie-slide-<?php echo $slide['_id']; ?>" style="background-image: url(<?php echo $slide_image ?>);">
+							<div class="maddie_container">
+								<img class="d-none" src="<?php echo $slide_image ?>" alt="<?php echo get_alt_image( $slide_image ); ?>">
+								<?php if ( $slide['ctrl_slide_title'] && $slide['ctrl_slide_title'] != '' ): ?>
+									<h2 class="maddie-slide-title"><?php echo $slide['ctrl_slide_title'] ?></h2>
+								<?php endif; ?>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+			<script>
+				jQuery(document).ready(function ($) {
+					$('.maddie-slider-widget .maddie-slider-wrapper').slick({
+						infinite: false,
+						slidesToShow: 1,
+						slidesToScroll: 1,
+						arrows: false,
+						// draggable: false,
+					});
+				});
+			</script>
+		<?php endif; ?>
+
+		<?php
 	}
 
 	protected function content_template() {
 		?>
-		<# view.addInlineEditingAttributes( 'funny_text', 'advanced' ); #>
-		<div {{{ view.getRenderAttributeString( 'funny_text' ) }}}>{{{ settings.funny_text }}}</div>
+		<!-- <# if ( settings.ctrl_slides ) { #>
+			<div class="maddie-slider-widget">
+				<div class="maddie-slider-wrapper">
+					<# _.each( settings.ctrl_slides, function( item, index ) { 
+						
+						var	maddie_slide_attr = view.getRepeaterSettingKey( '_id', 'ctrl_slides', index );
+						view.addRenderAttribute( maddie_slide_attr, { 
+							'class': [ '"maddie-slide', 'maddie-slide-' + item._id ], 
+							'style': 'background-image: url('+ item.ctrl_slide_image.url +');'
+						} ); #>
+
+						<div {{{ view.getRenderAttributeString( maddie_slide_attr ) }}}>
+							<div class="maddie_container">
+								<# if ( settings.ctrl_slide_title ) { #>
+									<h2 class="maddie-slide-title">{{{ item.ctrl_slide_title }}}</h2>
+								<# } #>
+							</div>
+						</div>
+
+					<# } ); #>
+				</div>
+			</div>
+		<# } #> -->
+
+
+		<# if ( settings.ctrl_slides ) { #>
+		<ul>
+			<# _.each( settings.ctrl_slides, function( item, index ) { #>
+				<li class="slide-item-{{ item._id }}">
+					<p>Slide #{{ index }}</p>
+					<ul>
+						<li><b>Slide title:</b> {{{ item.ctrl_slide_title }}}</li>
+
+						<# if ( item.ctrl_slide_image.url != '' ) { #>
+							<li><b>Slide image URL:</b> {{{ item.ctrl_slide_image.url }}}</li>
+						<# } else { #>
+							<li><b>Slide image URL:</b> NULL</li>
+						<# } #>
+					</ul>
+				</li>
+			<# }); #>
+		</ul>
+		<# } #>
 		<?php
 	}
-
-
 }

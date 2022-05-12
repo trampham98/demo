@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
+    font-size: 100%;
+
+    // xl
+    @include breakpoint(1400) {
+        font-size: 95%;
+    }
+
+    // lg
+    @include breakpoint(1200) {
+        font-size: 70%;
+    }
+
+    // md 
+    @include breakpoint(768) {
+        font-size: 65%;
+    }
+    
+    // sm
+    @include breakpoint(576) {
+        font-size: 60%;
+    }
+
+    body{
+        font-family: $font-main;
+        @include fs-16;
+        font-weight: 400;
+        color: $body-color;
+    }
+}
+
+.maddie_container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    
+    @media (min-width: 576px ) {
+        max-width: 540px;
+    } 
+    @media (min-width: 768px ) {
+        max-width: 720px;
+    }
+    @media (min-width: 1200px ) {
+        max-width: 1120px;
+    }
+    @media (min-width: 1400px ) {
+        max-width: 1300px;
+    }
+    @media (min-width: 1632px ) {
+        max-width: 1608px;
+    }
+}
+.maddie_full_container {
+    width: 100%;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+// custom container of elementor
+section.maddie_container_yes .elementor-container {
+    @extend .maddie_container;
+}
+
+// spacing padding
+.pt_1x {
+    padding-top: 60px;
+}
+.pt_2x {
+    padding-top: 120px;
+}
+.pb_1x {
+    padding-bottom: 60px;
+}
+.pb_2x {
+    padding-bottom: 120px;
+}
+.px_1x {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.px_2x {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+// spacing margin
+.mt_1x {
+    margin-top: 60px;
+}
+.mt_2x {
+    margin-top: 120px;
+}
+.mb_1x {
+    margin-bottom: 60px;
+}
+.mb_2x {
+    margin-bottom: 120px;
+}
+.mx_1x {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.mx_2x {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+// global class
+.d-none {
+    display: none!important;
+}
+
+// a {
+//     color: $primary;
+//     // @include rem ('font-size', 60);
+//     // font-size: 60px;
+
+//     @include breakpoint( 767 ) {
+//         color: yellowgreen;
+        
+//     }
+// }
