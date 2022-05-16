@@ -1,0 +1,18 @@
+.maddie-list-posttype-widget {
+    .list-members-widget {
+        .member-item {
+            // animation: bounce;
+            // animation-duration: 2s;
+
+            .member-item-avatar {
+                background-size: cover;
+                background-position: center;
+                padding-top: 90%;
+
+                img {
+                    display: none;
+                }
+            }
+        }
+    }
+}

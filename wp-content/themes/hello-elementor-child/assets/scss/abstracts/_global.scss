@@ -109,6 +109,25 @@ section.maddie_container_yes .elementor-container {
 }
 
 // global class
+.maddie-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.maddie-col-1 {
+    @include maddie-col(1);
+}
+.maddie-col-2 {
+    @include maddie-col(2);
+}
+.maddie-col-3 {
+    @include maddie-col(3);
+}
+.maddie-col-4 {
+    @include maddie-col(4);
+}
+
 .d-none {
     display: none!important;
 }

@@ -13,6 +13,7 @@ function theme_enqueue_styles() {
     // style css
     // wp_enqueue_style( 'hello-elementor', get_template_directory_uri() . '/style.min.css', array(), $the_theme->get( 'Version' ) );
     // wp_enqueue_style( 'vendors-styles', get_stylesheet_directory_uri() . '/assets/css/vendors.css', array(), $the_theme->get( 'Version' ) );
+    wp_enqueue_style( 'icomoon-styles', get_stylesheet_directory_uri() . '/assets/fonts/icomoon/style.css', array(), $the_theme->get( 'Version' ) );
     wp_enqueue_style( 'slick-styles', get_stylesheet_directory_uri() . '/assets/vendors/css/slick.css', array(), $the_theme->get( 'Version' ) );
     wp_enqueue_style( 'slick-theme-styles', get_stylesheet_directory_uri() . '/assets/vendors/css/slick-theme.css', array(), $the_theme->get( 'Version' ) );
     wp_enqueue_style( 'elementor-child-styles', get_stylesheet_directory_uri() . '/assets/css/theme.css', array(), $the_theme->get( 'Version' ) );

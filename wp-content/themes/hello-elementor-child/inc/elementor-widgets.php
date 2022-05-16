@@ -28,6 +28,10 @@ function maddie_register_elementor_widget( $widgets_manager ) {
 	// maddie list widget
     require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-list-widget.php' );
 	$widgets_manager->register( new \Elementor_Maddie_list_Widget() );
+
+	// maddie list widget
+    require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-list-posttype-widget.php' );
+	$widgets_manager->register( new \Elementor_Maddie_List_Posttype_Widget() );
 }
 
 // add elementor categories
@@ -79,8 +83,8 @@ function maddie_add_section_setting_controls( \Elementor\Element_Base $element) 
 		[
 			'label' => esc_html__( 'Enable Container', 'maddie' ),
 			'type' => \Elementor\Controls_Manager::SWITCHER,
-			'label_on' => esc_html__( 'On', 'your-plugin' ),
-			'label_off' => esc_html__( 'Off', 'your-plugin' ),
+			'label_on' => esc_html__( 'On', 'maddie' ),
+			'label_off' => esc_html__( 'Off', 'maddie' ),
 			'return_value' => 'yes',
 			// 'default' => 'no',
 			'prefix_class' => 'maddie_container_',

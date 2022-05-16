@@ -93,7 +93,8 @@ class Elementor_Maddie_Slider_Widget extends \Elementor\Widget_Base {
 
 	// Render demo widget output on the frontend.
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$settings  = $this->get_settings_for_display();
+		$widget_id = $this->get_id();
 
 		// if ( $settings['list'] ) {
 		// 	echo '<dl>';
@@ -107,12 +108,9 @@ class Elementor_Maddie_Slider_Widget extends \Elementor\Widget_Base {
 		?>
 
 		<?php if ( $settings['ctrl_slides'] ): ?>
-			<div class="maddie-slider-widget">
+			<div class="maddie-slider-widget maddie-widget-<?php echo $widget_id; ?>">
 				<div class="maddie-slider-wrapper">
 					<?php foreach (  $settings['ctrl_slides'] as $slide ): 
-						// error_log(print_r( 'test789', true ));
-						// error_log(print_r( $slide, true )); 
-
 						$slide_image = ($slide['ctrl_slide_image']['url'] !='') ? $slide['ctrl_slide_image']['url'] : \Elementor\Utils::get_placeholder_image_src(); ?>
 
 						<div class="maddie-slide maddie-slide-<?php echo $slide['_id']; ?>" style="background-image: url(<?php echo $slide_image ?>);">
@@ -128,7 +126,7 @@ class Elementor_Maddie_Slider_Widget extends \Elementor\Widget_Base {
 			</div>
 			<script>
 				jQuery(document).ready(function ($) {
-					$('.maddie-slider-widget .maddie-slider-wrapper').slick({
+					$('.maddie-widget-<?php echo $widget_id; ?> .maddie-slider-wrapper').slick({
 						infinite: false,
 						slidesToShow: 1,
 						slidesToScroll: 1,

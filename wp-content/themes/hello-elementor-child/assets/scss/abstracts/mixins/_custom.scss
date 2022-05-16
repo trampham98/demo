@@ -91,6 +91,12 @@
 }
 
 // global function
+@mixin maddie-col($col) {
+    width: calc(100%/(calc(12/$col)));
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 // @mixin bg-image {
 //     background-size: cover;

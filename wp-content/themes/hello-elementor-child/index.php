@@ -21,7 +21,12 @@ if ( is_front_page() ) {
 
 } elseif ( is_singular() ) {
 	if ( ! $is_elementor_theme_exist || ! elementor_theme_do_location( 'single' ) ) {
-		get_template_part( 'template-parts/single' );
+		$post_type = get_post_type();
+		if ( $post_type && locate_template('template-parts/' . $post_type . '.php') != '' ) {
+			get_template_part('template-parts/'. $post_type);
+		} else {
+			get_template_part( 'template-parts/single' );
+		}
 	}
 } elseif ( is_archive() || is_home() ) {
 	if ( ! $is_elementor_theme_exist || ! elementor_theme_do_location( 'archive' ) ) {
