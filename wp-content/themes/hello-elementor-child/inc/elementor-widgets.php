@@ -29,6 +29,10 @@ function maddie_register_elementor_widget( $widgets_manager ) {
     require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-milestone-widget.php' );
 	$widgets_manager->register( new \Elementor_Maddie_Milestone_Widget() );
 
+	// maddie milestone widget
+    require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-text-image.php' );
+	$widgets_manager->register( new \Elementor_Maddie_Text_Image() );
+
 
 	// demo
     // maddie repeater widget
@@ -48,6 +52,7 @@ function add_elementor_widget_categories( $elements_manager ) {
 		[
 			'title' => esc_html__( 'Maddie Category', 'maddie' ),
 			'icon' => 'fa fa-plug',
+			'sort' => 'a-z',
 		]
 	);
 }

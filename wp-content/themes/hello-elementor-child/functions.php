@@ -9,7 +9,7 @@ $demo_child_includes = array(
 	'/setup.php',                           // Theme setup and custom theme supports.
 	'/enqueue.php',                         // Enqueue scripts and styles.
 	'/shortcodes.php',                      // Custom shortcodes.
-	// '/widgets.php',                         // Custom shortcodes.
+	'/widgets.php',                         // Custom shortcodes.
 	// '/post_type.php',                       // Custom post_type.
 	// '/woocommerce.php',                     // Custom woocommerce.
 	'/elementor-widgets.php',               // Custom functions.
