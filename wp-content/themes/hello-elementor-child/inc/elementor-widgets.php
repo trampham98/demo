@@ -21,17 +21,23 @@ function maddie_register_elementor_widget( $widgets_manager ) {
     require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-slider-widget.php' );
 	$widgets_manager->register( new \Elementor_Maddie_Slider_Widget() );
 
+	// maddie list widget
+    require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-list-posttype-widget.php' );
+	$widgets_manager->register( new \Elementor_Maddie_List_Posttype_Widget() );
+
+	// maddie milestone widget
+    require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-milestone-widget.php' );
+	$widgets_manager->register( new \Elementor_Maddie_Milestone_Widget() );
+
+
+	// demo
     // maddie repeater widget
     require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-repeater-widget.php' );
 	$widgets_manager->register( new \Elementor_Maddie_Repeater_Widget() );
 
 	// maddie list widget
     require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-list-widget.php' );
-	$widgets_manager->register( new \Elementor_Maddie_list_Widget() );
-
-	// maddie list widget
-    require_once( get_stylesheet_directory() . '/elementor-widgets/maddie-list-posttype-widget.php' );
-	$widgets_manager->register( new \Elementor_Maddie_List_Posttype_Widget() );
+	$widgets_manager->register( new \Elementor_Maddie_list_Widget() );	
 }
 
 // add elementor categories
