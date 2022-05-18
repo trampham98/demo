@@ -291,7 +291,7 @@ class Elementor_Maddie_List_Posttype_Widget extends \Elementor\Widget_Base {
 								'post_type'       => 'news',
 							);
 						?>
-						<form class="news_filter_form" action="<?php echo esc_url( get_the_permalink() ); ?>" method="get">
+						<form class="news_filter_form" action="<?php echo esc_url( get_the_permalink() ); ?>" method="get" data-query='{"post_per_page": "<?php echo $post_per_page; ?>"}'>
 							<?php wp_dropdown_categories( $news_cate_args ); ?>
 							<select name="news_year">
 								<option value=""><?php esc_attr( _e( 'All Year', 'maddie' ) ); ?></option> 
@@ -301,29 +301,31 @@ class Elementor_Maddie_List_Posttype_Widget extends \Elementor\Widget_Base {
 					</div>				
 				</div>
 				
-				<?php if ( $the_query->have_posts() ) : ?>
-					<div class="list-news-wrapper maddie-row">
-						<?php 
-							$index=1; 
-							while ( $the_query->have_posts() ) {
-								$the_query->the_post(); 
-								get_template_part(
-									'loop-templates/content',
-									'news',
-									array(
-										'index'   => $index,
-									)
-								);
-								$index++;
-							} 							
-						?>
-					</div>
-					<?php understrap_pagination(); ?>
+				<div class="maddie-posts-content maddie-news-content">
+					<?php if ( $the_query->have_posts() ) : ?>
+						<div class="list-news-wrapper maddie-row">
+							<?php 
+								$index=1; 
+								while ( $the_query->have_posts() ) {
+									$the_query->the_post(); 
+									get_template_part(
+										'loop-templates/content',
+										'news',
+										array(
+											'index'   => $index,
+										)
+									);
+									$index++;
+								} 							
+							?>
+						</div>
+						<?php understrap_pagination(); ?>
 
-				<?php else : ?>
-					<p><?php _e( 'No posts', 'maddie' ); ?></p>
-				<?php endif; ?>
-				<?php wp_reset_postdata(); ?>
+					<?php else : ?>
+						<p><?php _e( 'No posts', 'maddie' ); ?></p>
+					<?php endif; ?>
+					<?php wp_reset_postdata(); ?>
+				</div>
 
 			<!-- post default -->
 			<?php else :

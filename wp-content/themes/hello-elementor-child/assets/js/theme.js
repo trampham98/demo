@@ -69,5 +69,5 @@ jQuery(document).ready(function ($) {
 
     addAnimationPostTypeItem(listPostTypeSection);
     addNewsYearOptValue();
-    submitFormNewsFilter();
+    // submitFormNewsFilter();
 });
