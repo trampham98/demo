@@ -15,4 +15,24 @@
             }
         }
     }
+
+    .list-news-wrapper {
+        .news-item {
+            .news-item-wrapper {
+                border: 1px solid #dddddd;
+                padding: 10px 20px;
+                border-radius: 4px;
+                margin: 10px auto;
+            }
+            .new-item-title {
+                display: block;
+                font-size: 20px;
+            }
+
+            .new-item-date {
+                display: block;
+                text-align: right;
+            }
+        }
+    }
 }

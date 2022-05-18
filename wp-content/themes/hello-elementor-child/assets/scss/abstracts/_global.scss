@@ -115,6 +115,9 @@ section.maddie_container_yes .elementor-container {
     margin-left: -10px;
     margin-right: -10px;
 }
+.justify-content-end {
+    justify-content: end;
+}
 .maddie-col-1 {
     @include maddie-col(1);
 }

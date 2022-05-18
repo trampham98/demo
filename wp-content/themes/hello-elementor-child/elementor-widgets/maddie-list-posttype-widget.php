@@ -71,6 +71,7 @@ class Elementor_Maddie_List_Posttype_Widget extends \Elementor\Widget_Base {
 				'label' => esc_html__( 'Post Type', 'maddie' ),
 				'options' => [
 					'post' => esc_html__( 'Post', 'maddie' ),
+					'news' => esc_html__( 'News', 'maddie' ),
 					'member' => esc_html__( 'Member', 'maddie' ),
 				],
 				'default' => 'post',
@@ -127,8 +128,42 @@ class Elementor_Maddie_List_Posttype_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'ctrl_enable_news_filter',
+			[
+				'label' => esc_html__( 'Enable Filter', 'maddie' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'On', 'maddie' ),
+				'label_off' => esc_html__( 'Off', 'maddie' ),
+				'return_value' => 'yes',
+				'condition' => [
+					'ctrl_post_type' => 'news',
+				],
+				'default' => 'no',
+			]
+		);
+
+		$this->add_control(
+			'ctrl_enable_news_pagination',
+			[
+				'label' => esc_html__( 'Enable Pagination', 'maddie' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'On', 'maddie' ),
+				'label_off' => esc_html__( 'Off', 'maddie' ),
+				'return_value' => 'yes',
+				'condition' => [
+					'ctrl_post_type' => 'news',
+				],
+				'default' => 'no',
+			]
+		);
+
 		$this->end_controls_section();
 
+	}
+
+	public function get_style_depends() {
+		return [ 'e-animations' ];
 	}
 
 	// Render demo widget output on the frontend.
@@ -145,13 +180,16 @@ class Elementor_Maddie_List_Posttype_Widget extends \Elementor\Widget_Base {
 		$widget_title  = $settings['ctrl_widget_title'];
 		$post_type     = $settings['ctrl_post_type'];
 		$post_per_page = $settings['ctrl_posts_per_page'] ? $settings['ctrl_posts_per_page'] : 4;
+		$paged         = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 
-		$member_cate   = $settings['ctrl_member_categories'] ?? '';
-		
 		$args = array(
 			'post_type'      => $post_type,
 			'posts_per_page' => $post_per_page,
+			'paged'          => $paged,
 		);
+
+		// member
+		$member_cate   = $settings['ctrl_member_categories'] ?? '';
 
 		if ( $post_type == 'member' && $member_cate != '' && $member_cate != 'all' ) {
 			$args['tax_query'] =  array(
@@ -163,19 +201,79 @@ class Elementor_Maddie_List_Posttype_Widget extends \Elementor\Widget_Base {
 			);
 		}
 
-		$query = new WP_Query( $args );
+		// news
+		$news_cat = '';
+		$news_year = '';
+
+		if ( isset($_GET['news_cat']) && $_GET['news_cat'] != '' ) {			
+			$news_cat = $_GET['news_cat'];
+			$args['tax_query'] =  array(
+				array(
+					'taxonomy' => 'tax_news',
+					'field'    => 'slug',
+					'terms'    => $news_cat,
+				),
+			);
+		}
+
+		if ( isset($_GET['news_year']) && $_GET['news_year'] != '' ) {
+			$news_year = $_GET['news_year'];
+			$args['date_query'] =  array(
+				array(
+					'year'  => $news_year,
+				),
+			);
+		}
+
+		global $the_query;
+		$the_query = new WP_Query( $args );
 		?>
 		<!-- style="animation: slideInUp; animation-duration: <?php //echo $index*0.5; ?>s;" -->
 		<div class="maddie-list-posttype-widget maddie-widget-<?php echo $widget_id; ?> <?php echo 'posttype_item_animate_'.$animate_post; ?>">
 
 			<h2 class="list-posttype-widget-title"><?php echo $widget_title; ?></h2>
 
+			<!-- Filter news -->
+			<div class="new-filter maddie-row justify-content-end">
+				<div class="maddie-col-2">
+					<?php 
+						$news_cate_args = array(
+							'show_option_none' => __( 'All Categories', 'textdomain' ),
+							'orderby'         => 'name',
+							'show_count'      => 0,
+							'selected'        => $news_cat,
+							'name'            => 'news_cat',
+							'class'           => 'news_categories_dropdown',
+							'taxonomy'        => 'tax_news',
+							'option_none_value' => '',
+							'value_field'     => 'slug',
+						);
+
+						$news_years = array(
+							'type'            => 'yearly', 
+							'format'          => 'option',
+							'show_post_count' => false,
+							// 'echo'            => false,
+							'post_type'       => 'news',
+						);
+					?>
+					<form class="news_filter_form" action="<?php echo esc_url( get_the_permalink() ); ?>" method="get">
+						<?php wp_dropdown_categories( $news_cate_args ); ?>
+						<select name="news_year">
+							<option value=""><?php esc_attr( _e( 'All Year', 'maddie' ) ); ?></option> 
+							<?php wp_get_archives( $news_years ); ?>
+						</select>
+					</form>
+				</div>
+									
+			</div>
+
 			<!-- member -->
 			<?php if ( $post_type == 'member' ): ?>
-				<?php if ( $query->have_posts() ) : ?>
+				<?php if ( $the_query->have_posts() ) : ?>
 					<div class="list-members-widget maddie-row">
 						<?php $index=1; ?>
-						<?php while ( $query->have_posts() ): $query->the_post(); 
+						<?php while ( $the_query->have_posts() ): $the_query->the_post(); 
 						
 							$member_id       = get_the_ID();
 							$member_avatar   = has_post_thumbnail() ? get_the_post_thumbnail_url($member_id, 'full') : \Elementor\Utils::get_placeholder_image_src();
@@ -227,13 +325,36 @@ class Elementor_Maddie_List_Posttype_Widget extends \Elementor\Widget_Base {
 					<p><?php _e( 'No posts', 'maddie' ); ?></p>
 				<?php endif; ?>
 				<?php wp_reset_postdata(); ?>
+			
+			<!-- news -->
+			<?php elseif ( $post_type == 'news' ): ?>	
+				<?php if ( $the_query->have_posts() ) : ?>
+					<?php $index=1; ?>
+					<div class="list-news-wrapper maddie-row">
+						<?php while ( $the_query->have_posts() ): $the_query->the_post(); ?>
+							<div class="maddie-col-4 news-item maddie-post-item" style="animation-duration: <?php echo $index*0.5; ?>s;">
+								<div class="news-item-wrapper">
+									<a class="new-item-title" href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a>
+									<span class="new-item-date"><?php echo get_the_date('F m, Y'); ?></span>
+								</div>
+							</div>
+							<?php $index++; ?>
+						<?php endwhile; ?>
+					</div>
+
+					<?php understrap_pagination(); ?>
+
+				<?php else : ?>
+					<p><?php _e( 'No posts', 'maddie' ); ?></p>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
 
 			<!-- post default -->
 			<?php else :
-				if ( $query->have_posts() ) {
+				if ( $the_query->have_posts() ) {
 					echo '<ul class="books-listing-elementor-widget-wrapper">';
-					while ( $query->have_posts() ) {
-						$query->the_post();
+					while ( $the_query->have_posts() ) {
+						$the_query->the_post();
 						echo '<li>' . get_the_title() . '</li>';
 					}
 					echo '</ul>';
