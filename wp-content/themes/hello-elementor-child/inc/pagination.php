@@ -46,6 +46,13 @@ if ( ! function_exists( 'understrap_pagination' ) ) {
 			return;
 		}
 
+		$paged = 1;
+		if ( get_query_var( 'paged' ) ) {
+			$paged = absint( get_query_var( 'paged' ) );
+		} elseif ( get_query_var( 'page' ) ) {
+			$paged = absint( get_query_var( 'page' ) );
+		}
+
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -54,7 +61,7 @@ if ( ! function_exists( 'understrap_pagination' ) ) {
 				'prev_text'          => __( '&laquo;', 'understrap' ),
 				'next_text'          => __( '&raquo;', 'understrap' ),
 				'type'               => 'array',
-				'current'            => max( 1, get_query_var( 'paged' ) ),
+				'current'            => max( 1, $paged ),
 				'screen_reader_text' => __( 'Posts navigation', 'understrap' ),
                 'total' => $the_query->max_num_pages
 			)

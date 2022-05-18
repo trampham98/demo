@@ -6,15 +6,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 $demo_child_includes = array(
-	'/setup.php',                           // Theme setup and custom theme supports.
-	'/enqueue.php',                         // Enqueue scripts and styles.
-	'/shortcodes.php',                      // Custom shortcodes.
-	'/widgets.php',                         // Custom shortcodes.
-	// '/post_type.php',                       // Custom post_type.
-	// '/woocommerce.php',                     // Custom woocommerce.
-	'/pagination.php',                      // Custom pagination for this theme.
-	'/elementor-widgets.php',               // Custom functions.
-	'/functions.php'                        // Custom functions.
+	'/setup.php',                           
+	'/enqueue.php',                         
+	'/shortcodes.php',                     
+	'/widgets.php',
+	'/ajax.php',
+	// '/post_type.php',
+	// '/woocommerce.php',
+	'/pagination.php',
+	'/elementor-widgets.php',
+	'/functions.php'
 );
 
 foreach ( $demo_child_includes as $file ) {

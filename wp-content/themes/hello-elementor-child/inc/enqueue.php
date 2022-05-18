@@ -22,10 +22,18 @@ function theme_enqueue_styles() {
     wp_enqueue_script( 'jquery');       
     wp_enqueue_script( 'slick-scripts', get_stylesheet_directory_uri() . '/assets/vendors/js/slick.min.js', array(), $the_theme->get( 'Version' ), true );
     wp_enqueue_script( 'jquery-ui-scripts', get_stylesheet_directory_uri() . '/assets/vendors/js/jquery-ui.js', array(), $the_theme->get( 'Version' ), true );
+
+    // ajax
+    wp_enqueue_script( 'ajax-scripts', get_stylesheet_directory_uri() . '/assets/js/ajax.js', array(), $the_theme->get( 'Version' ), true );
+    wp_localize_script( 
+        'ajax-scripts', 
+        'maddie_ajax_obj', 
+        array( 
+            'ajax_url' => admin_url( 'admin-ajax.php' ), 
+            'we_value' => 1234
+        ) 
+    );
     
     // wp_enqueue_script( 'vendors-scripts', get_stylesheet_directory_uri() . '/assets/js/vendors.js', array(), $the_theme->get( 'Version' ), true );
     wp_enqueue_script( 'elementor-child-scripts', get_stylesheet_directory_uri() . '/assets/js/theme.js', array(), $the_theme->get( 'Version' ), true );
-    
-    // wp_enqueue_script( 'ajax-scripts', get_stylesheet_directory_uri() . '/assets/js/ajax.js', array(), $the_theme->get( 'Version' ), true );
-    // wp_localize_script( 'elementor-child-scripts', 'demo', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 }
