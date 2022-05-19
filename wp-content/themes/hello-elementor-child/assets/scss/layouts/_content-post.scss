@@ -16,11 +16,15 @@
     }
 
     &.news-item {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
         .news-item-wrapper {
+            height: 100%;
             border: 1px solid #dddddd;
             padding: 10px 20px;
             border-radius: 4px;
-            margin: 10px auto;
+            // margin: 10px auto;
         }
         .new-item-title {
             display: block;
@@ -28,6 +32,28 @@
         }
 
         .new-item-date {
+            display: block;
+            text-align: right;
+        }
+    }
+
+    &.job-item {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        .job-item-wrapper {
+            height: 100%;
+            border: 1px solid #dddddd;
+            padding: 10px 20px;
+            border-radius: 4px;
+            // margin: 10px auto;
+        }
+        .job-item-title {
+            display: block;
+            font-size: 18px;
+        }
+
+        .job-item-date {
             display: block;
             text-align: right;
         }

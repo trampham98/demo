@@ -30,3 +30,40 @@ function get_alt_image( $image, $altDefault = 'Demo' ) {
 
     return $altDefault;
 }
+
+function maddie_custom_pre_get_posts( $query ) {
+    if ( ! is_admin() && $query->is_main_query() ) { 
+        if ( is_post_type_archive('job') ) {
+            $query->set( 'posts_per_page', -1 );
+        }
+    }
+}
+add_action( 'pre_get_posts', 'maddie_custom_pre_get_posts' );
+
+
+function maddie_get_terms_checklist( $taxonomy ) {
+ 
+    $args = array(
+        'taxonomy'     => $taxonomy,
+        'hide_empty'   => true,
+        // 'hierarchical' => false,
+    );
+
+    $terms = get_terms( $args );
+    ?>
+  
+    <?php if ($terms): ?>
+        <ul class="<?php echo $taxonomy; ?>_checklist">
+            <?php foreach ( $terms as $term ): ?>
+                <li class="checkbox-item">
+                    <label>
+                        <input type="checkbox" name="<?php echo $taxonomy.'_'.$term->term_id; ?>" value="<?php echo $term->term_id; ?>"/>
+                        <span class="checkbox-item-label"><?php echo esc_html( apply_filters( 'the_category', $term->name, '', '' ) ); ?></span>
+                    </label>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+<?php    
+}

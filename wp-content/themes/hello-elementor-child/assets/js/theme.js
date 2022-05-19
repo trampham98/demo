@@ -70,4 +70,89 @@ jQuery(document).ready(function ($) {
     addAnimationPostTypeItem(listPostTypeSection);
     addNewsYearOptValue();
     // submitFormNewsFilter();
+
+
+    function searchKeyword() {
+        var inputKeywordObj = document.getElementById("keyword");
+        inputKeywordObj.addEventListener("keyup", function (e) {
+            var inputText = e.target.value;
+            var filter    = inputText.toLowerCase();
+
+            filterJobsByTitle(filter);
+        });
+    }
+
+    function filterJobByTerm() {
+
+        var checklistTerms = [];
+
+        $( "input[type=checkbox]" ).click(function() {
+            var jobTermsObj   = $('.archive-job-wrapper .maddie-post-item .job-item-team');
+            var checkboxValue = parseInt( $(this).val() );
+    
+            if ( $(this).is(':checked') ) {
+                checklistTerms.push( parseInt(checkboxValue) );
+            } else {
+                checklistTerms = $.grep(checklistTerms, function(value) {
+                    return value != checkboxValue;
+                });
+            }    
+    
+            if ( checklistTerms.length > 0 ) {
+                jobTermsObj.each(function( index ) {
+                    var terms     = $(this).data('terms');
+                    var matchTerm = false;
+    
+                    $.each( checklistTerms, function( key, value ) {
+                        if ( $.inArray( value, terms ) >= 0 ) {
+                            matchTerm = true;
+                        }
+                    });
+                        
+                    if ( matchTerm ) {
+                        $(this).parents('.maddie-post-item').removeClass('d-none');
+                    } else {
+                        $(this).parents('.maddie-post-item').addClass('d-none');
+                    }
+        
+                });
+            } else {
+                jobTermsObj.parents('.maddie-post-item').removeClass('d-none');
+            }
+            
+        });
+    }
+
+    function filterJobsByTitle( filterKeyword, filterTeam='' ) {
+
+        var jobTitlesObj = $('.archive-job-wrapper .maddie-post-item a.job-item-title');
+        var countJob     = 0;   
+
+        jobTitlesObj.each(function( index ) {
+            
+            var jobTitle = $( this ).text().toLowerCase();
+
+            if ( jobTitle.indexOf( filterKeyword ) > -1 ) {
+                $(this).parents('.maddie-post-item').removeClass('d-none');
+                $(this).parents('.maddie-post-item').addClass('active');
+
+            } else {
+                $(this).parents('.maddie-post-item').addClass('d-none');
+                $(this).parents('.maddie-post-item').removeClass('active');
+
+                countJob++;
+            }
+        });
+
+        if ( countJob == jobTitlesObj.length ) {
+            if ( $('p.no-post').length < 1 ) {
+                $( ".archive-job-wrapper .page-content" ).append( "<p class='no-post'>No post</p>" );
+            }
+        } else {
+            $( "p.no-post" ).remove();
+        }
+    }
+
+    searchKeyword();
+    filterJobByTerm();
 });

@@ -92,7 +92,7 @@
 
 // global function
 @mixin maddie-col($col) {
-    width: calc(100%/(calc(12/$col)));
+    width: calc( 100% * ( calc($col/12) ) );
     position: relative;
     padding-left: 10px;
     padding-right: 10px;

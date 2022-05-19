@@ -130,6 +130,30 @@ section.maddie_container_yes .elementor-container {
 .maddie-col-4 {
     @include maddie-col(4);
 }
+.maddie-col-5 {
+    @include maddie-col(5);
+}
+.maddie-col-6 {
+    @include maddie-col(6);
+}
+.maddie-col-7 {
+    @include maddie-col(7);
+}
+.maddie-col-8 {
+    @include maddie-col(8);
+}
+.maddie-col-9 {
+    @include maddie-col(9);
+}
+.maddie-col-10 {
+    @include maddie-col(10);
+}
+.maddie-col-11 {
+    @include maddie-col(11);
+}
+.maddie-col-12 {
+    @include maddie-col(12);
+}
 
 .d-none {
     display: none!important;

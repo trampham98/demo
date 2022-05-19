@@ -40,10 +40,13 @@ if ( ! function_exists( 'understrap_pagination' ) ) {
 	 * @param string       $class           (Optional) Classes to be added to the <ul> element. Default 'pagination'.
 	 */
 	function understrap_pagination( $args = array(), $class = 'pagination' ) {
-        global $the_query;
 
 		if ( ! isset( $args['total'] ) && $GLOBALS['the_query']->max_num_pages <= 1 ) {
 			return;
+		}
+
+		if ( !$args['total'] ) {
+			$args['total'] = $GLOBALS['the_query']->max_num_pages;
 		}
 
 		$paged = 1;
@@ -63,7 +66,7 @@ if ( ! function_exists( 'understrap_pagination' ) ) {
 				'type'               => 'array',
 				'current'            => max( 1, $paged ),
 				'screen_reader_text' => __( 'Posts navigation', 'understrap' ),
-                'total' => $the_query->max_num_pages
+                // 'total' => $the_query->max_num_pages
 			)
 		);
 

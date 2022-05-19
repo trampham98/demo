@@ -173,6 +173,62 @@
   padding-right: 10px;
 }
 
+.maddie-col-5 {
+  width: 41.6666666667%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.maddie-col-6 {
+  width: 50%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.maddie-col-7 {
+  width: 58.3333333333%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.maddie-col-8 {
+  width: 66.6666666667%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.maddie-col-9 {
+  width: 75%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.maddie-col-10 {
+  width: 83.3333333333%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.maddie-col-11 {
+  width: 91.6666666667%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.maddie-col-12 {
+  width: 100%;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .d-none {
   display: none !important;
 }
@@ -224,17 +280,39 @@
 .maddie-post-item.member-item .member-item-avatar img {
   display: none;
 }
+.maddie-post-item.news-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .maddie-post-item.news-item .news-item-wrapper {
+  height: 100%;
   border: 1px solid #dddddd;
   padding: 10px 20px;
   border-radius: 4px;
-  margin: 10px auto;
 }
 .maddie-post-item.news-item .new-item-title {
   display: block;
   font-size: 20px;
 }
 .maddie-post-item.news-item .new-item-date {
+  display: block;
+  text-align: right;
+}
+.maddie-post-item.job-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.maddie-post-item.job-item .job-item-wrapper {
+  height: 100%;
+  border: 1px solid #dddddd;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+.maddie-post-item.job-item .job-item-title {
+  display: block;
+  font-size: 18px;
+}
+.maddie-post-item.job-item .job-item-date {
   display: block;
   text-align: right;
 }
