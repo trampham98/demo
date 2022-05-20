@@ -50,9 +50,11 @@ function maddie_get_terms_checklist( $taxonomy ) {
     );
 
     $terms = get_terms( $args );
+    $select_html = '';
     ?>
   
     <?php if ($terms): ?>
+        <?php $select_html .= '<select name="'.$taxonomy.'[]" id="" multiple="multiple">'; ?>
         <ul class="<?php echo $taxonomy; ?>_checklist">
             <?php foreach ( $terms as $term ): ?>
                 <li class="checkbox-item">
@@ -61,8 +63,11 @@ function maddie_get_terms_checklist( $taxonomy ) {
                         <span class="checkbox-item-label"><?php echo esc_html( apply_filters( 'the_category', $term->name, '', '' ) ); ?></span>
                     </label>
                 </li>
+                <?php $select_html .= '<option value="'.$term->term_id.'">'.$term->name.'</option>'; ?>
             <?php endforeach; ?>
         </ul>
+        <?php $select_html .= '</select>'; ?>
+        <?php echo $select_html; ?>
     <?php endif; ?>
 
 <?php    
