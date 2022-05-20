@@ -137,6 +137,7 @@ jQuery(document).ready(function ($) {
 
             jobItem.find('.job-item-title').text( jobs[i].jobTitle );
             jobItem.find('.job-item-title').attr( 'href', jobs[i].jobLink );
+            jobItem.find('.job-item-title').attr( 'data-link', jobs[i].jobId );
 
             jobItem.find('.job-item-team').text( jobs[i].jobTeamsName );
             if ( jobs[i].jobTeamsId ) {
@@ -160,8 +161,39 @@ jQuery(document).ready(function ($) {
 
     initFilterJobs();
 
-    // searchKeyword();
-    // filterJobByTerm();
+    // save current obj
+    var jobsViewed = JSON.parse(localStorage.getItem("jobsViewed"));
 
-    
+    if ( jobsViewed ) {
+        jobsViewedHtml = '';
+        for (var index = 0; index < jobsViewed.length; index++) {
+            var element      = jobsViewed[index];
+            var jobTitleItem = $('.job-item-title[data-link="'+ element +'"]');
+
+            jobsViewedHtml += '<a href="'+ jobTitleItem.attr('href') +'">'+ jobTitleItem.text() +'<a/>';
+            $('.jobs-viewed-wrapper').html(jobsViewedHtml);
+        }
+    }
+
+    $(document).on('click', '.job-item-title', function () {
+        var ids   = [];
+        var jobID = $(this).attr('data-link');
+
+        if ( !jobsViewed ) {
+            ids[0] = jobID;
+        } else {
+            ids = jobsViewed;
+            if ( $.inArray( jobID, ids ) < 0 ) {
+                ids.unshift(jobID);
+            } else {
+                ids.splice( ids.indexOf(jobID), 1 );
+                ids.unshift(jobID);
+            }
+            
+            if ( ids.length > 5 ) {
+                ids.pop()
+            }
+        }
+        localStorage.setItem("jobsViewed", JSON.stringify(ids));
+    });
 });

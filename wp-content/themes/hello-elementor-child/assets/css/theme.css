@@ -316,3 +316,7 @@
   display: block;
   text-align: right;
 }
+
+.jobs-viewed-wrapper a {
+  display: block;
+}

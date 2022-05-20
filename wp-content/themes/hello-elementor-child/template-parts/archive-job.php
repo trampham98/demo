@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <main id="content" class="archive-job-content px_2x" role="main">
 	<template id="job-item-template">
-		<div class="maddie-col-6 job-item maddie-post-item">
+		<div class="maddie-col-6 job-item maddie-post-item" data-post-id="">
 			<div class="job-item-wrapper">
-				<a class="job-item-title" href=""></a>
+				<a class="job-item-title" data-link="" href=""></a>
 				<span class="job-item-team"></span>
 				<span class="job-item-date"><small></small></span>
 			</div>
@@ -36,13 +36,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<form class="job_filter_form" method="get" data-empty="<?php _e('No Jobs', 'maddie'); ?>">
 						<label for="keyword">Keyword: </label><br>
 						<input type="text" id="keyword" name="keyword" value="">
-
 						<div class="team_checklist mt_1x">
 							<h3>Teams:</h3>
 							<?php maddie_get_terms_checklist('tax_job_team'); ?>
 						</div>
-				
 					</form> 
+
+					<div class="jobs-viewed">
+						<h2>Recently viewed positions:</h2>
+						<div class="jobs-viewed-wrapper">
+
+						</div>
+					</div>
 				</div>
 				<div class="maddie-col-8">
 					<div class="page-content maddie-row" id="jobs_container">
